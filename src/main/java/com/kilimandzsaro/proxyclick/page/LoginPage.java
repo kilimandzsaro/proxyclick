@@ -39,8 +39,7 @@ public class LoginPage extends Page {
 	//Methods
 	@Step
 	public WebDriver login(String uName, String passw){
-		// put extra step to load the page
-		webDriver.getPageSource();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='text']")));
 
 		userName.sendKeys(uName);
 		password.sendKeys(passw);
