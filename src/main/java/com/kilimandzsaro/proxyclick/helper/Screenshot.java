@@ -3,6 +3,8 @@ package com.kilimandzsaro.proxyclick.helper;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Reporter;
+
 import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.io.File;
@@ -29,6 +31,7 @@ public class Screenshot extends Driver {
         TakesScreenshot takesScreenshot = ((TakesScreenshot) webDriver);
         byte[] png = takesScreenshot.getScreenshotAs(OutputType.BYTES);
         writeScreenshot(path, png);
+        Reporter.log("<a href='"+ path.getAbsolutePath() + "'> <img src='"+ path.getAbsolutePath() + "' height='100' width='100'/> </a>");
         return (png);
     }
 

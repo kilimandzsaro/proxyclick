@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name = "Custom Field">
+   <listeners>
+      <listener class-name="com.kilimandzsaro.proxyclick.helper.ScreenshotListener" />
+    </listeners>
+   <test name = "Create Custom Field">
+      <classes>
+         <class name = "com.kilimandzsaro.proxyclick.custom_field.CreateCustomField"/>
+      </classes>
+   </test>
+</suite>

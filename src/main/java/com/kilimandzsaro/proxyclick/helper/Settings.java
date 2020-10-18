@@ -4,7 +4,11 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class Settings {
     
-    Dotenv dotenv = Dotenv.load();
+    private Dotenv dotenv;
+
+    public Settings() {
+        this.dotenv = Dotenv.load();
+    }
 
     public String getAdminUser() {
         return dotenv.get("ADMIN_USER");
@@ -16,5 +20,9 @@ public class Settings {
 
     public String getBaseURL() {
         return dotenv.get("BASE_URL");
+    }
+
+    public String getChromeDriverPath() {
+        return dotenv.get("CHROMEDRIVER_PATH");
     }
 }
