@@ -1,7 +1,5 @@
 package com.kilimandzsaro.proxyclick.page;
 
-import com.kilimandzsaro.proxyclick.helper.Settings;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,8 +27,9 @@ public class LoginPage extends Page {
 	@FindBy(xpath = "//a[@title='Corp JRM Bakos']")
 	private WebElement testCorpLocation;
 
-	@FindBy(xpath = "//a[@uib-tooltip='Logbook']")
+	@FindBy(xpath = "//div[@aria-label='Open Intercom Messenger']")
 	private WebElement dashboard;
+	private String dashboardString = "//div[@aria-label='Open Intercom Messenger']";
 
 	public LoginPage(WebDriver webDriver) {
 		super(webDriver);
@@ -56,12 +55,15 @@ public class LoginPage extends Page {
 		login(settings.getAdminUser(), settings.getAdminPassword());
 
 		// Wait until it logged in
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@uib-tooltip='Logbook']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(dashboardString)));
 
 		// Select the test corp location
+		String url = webDriver.getCurrentUrl();
 		locationSelector.click();
 		testCorpLocation.click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@uib-tooltip='Logbook']")));
+		wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(url)));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search people, companies, groups']")));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(dashboardString)));
 
 		return webDriver;
 	}

@@ -13,7 +13,6 @@ public class ScreenshotListener extends TestListenerAdapter {
 	@Override
 	public void onTestFailure(ITestResult testResult) {
         System.out.println("-- Failure Handler --");
-        System.out.println(testResult.getTestContext().getAttribute("driver"));
 		setScreenshot(testResult);
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,7 +15,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 public class SettingsPage extends Page {
 
     // WebElements
-    @FindBy(xpath = "//svg[@class='icon-settings-32']")
+    @FindBy(xpath = "//a[@uib-tooltip='Settings']")
     private WebElement settingsMenu;
 
     @FindBy(xpath = "//a[@translate='vm_settings_tab_logbook']")
@@ -29,9 +30,9 @@ public class SettingsPage extends Page {
     private WebElement customFieldName;
     private String nameField = "name";
 
-    @FindBy(xpath = "//input[@type='checkbox']")
+    @FindBy(xpath = "//pxc-button-switch[@ng-model='field.showToAllInVisitForm']")
     private WebElement customFieldHiddenElement;
-    private String hiddenElementCheckbox = "//input[@type='checkbox']";
+    private String hiddenElementCheckbox = "//input[@class='c-switch']";
 
     @FindBy(xpath = "//button[@text='Save']")
     private WebElement customFieldSave;
@@ -45,7 +46,10 @@ public class SettingsPage extends Page {
     // Methods
     @Step
     public WebDriver goLogbookSettings() {
-        webDriver.get(trimDashboardFromURL(webDriver.getCurrentUrl()) + "/settings/visit");
+        // webDriver.get(trimDashboardFromURL(webDriver.getCurrentUrl()) + "/settings/company");
+        settingsMenu.click();
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//div[@translate='common_settings_general_company_name_title']")));
+        logbook.click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(newCustomFieldButton)));
 
         return webDriver;
@@ -110,22 +114,16 @@ public class SettingsPage extends Page {
 
     @Step
     public Boolean isCustomFieldExist(String customFieldName) {
-        List<WebElement> tr = webDriver.findElements(By.xpath("//td[@class='ellipsed ng-binding']/"));
+        webDriver.navigate().refresh();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(newCustomFieldButton)));
+        List<WebElement> tr = webDriver.findElements(By.xpath("//td[@class='ellipsed ng-binding']"));
         for (WebElement e : tr) {
-            if (e.getText() == customFieldName) {
+            if (e.getText().equals(customFieldName)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    private String trimDashboardFromURL(String url) {
-        if (url.endsWith("/dashboard")) {
-            return url.replaceFirst("/dashboard", "/");
-        }
-
-        return url;
     }
     
 }
