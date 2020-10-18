@@ -6,7 +6,7 @@ This repository is for the homework of the Proxyclick interview.
 
 1. Java: It was written in java 15
 2. Maven: Building tool (Apache Maven 3.6.3)
-3. Chromedriver: currently it uses only chromedriver for windows, the exec file is in the src/main/recources directory (ChromeDriver 86.0.4240.22)
+3. Chromedriver: currently it uses only chromedriver, the exec file is in the src/main/recources directory (ChromeDriver 86.0.4240.22), but if you have your own chromedriver, just point the relevant variable in the .env file to that.
 4. Chrome: The chosen browser is Chrome. It requires Chrome workd with ChromeDriver 86, or just change the ChromeDriver exec file to your need and run the tests with it
 5. .env: The file contains the test settings. It contains sensitive data (like username and password), so you have to fill the file with the necessary information.
 
